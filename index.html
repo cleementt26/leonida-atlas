@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071411">
+  <meta name="description" content="Atlas interactif et sourcé de la reconstruction communautaire de Leonida dans GTA VI.">
+  <title>Leonida Atlas — Carte communautaire GTA VI</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Leonida Atlas, accueil">
+      <span class="brand-mark">LA</span>
+      <span><strong>LEONIDA</strong><small>ATLAS / BETA</small></span>
+    </a>
+    <div class="status"><i></i><span>RECONSTRUCTION COMMUNAUTAIRE</span></div>
+    <nav aria-label="Navigation principale">
+      <button class="nav-link active" data-view="map">Carte</button>
+      <button class="nav-link" data-view="investigation">L’enquête</button>
+      <button class="nav-link" data-view="sources">Sources</button>
+    </nav>
+    <button class="icon-btn mobile-menu" id="mobileMenu" aria-label="Ouvrir les filtres">☰</button>
+  </header>
+
+  <main>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <div><span class="eyebrow">BASE CARTOGRAPHIQUE</span><h1>Leonida<br><em>reconstituée.</em></h1></div>
+        <button class="close-sidebar" id="closeSidebar" aria-label="Fermer">×</button>
+      </div>
+      <p class="intro">Une lecture critique de la carte assemblée image par image par la communauté GTA VI.</p>
+
+      <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Rechercher un lieu…" autocomplete="off"></label>
+
+      <section class="filter-section">
+        <div class="section-title"><span>Niveau de preuve</span><button id="resetFilters">Tout afficher</button></div>
+        <label class="check"><input type="checkbox" value="official" checked><b class="dot official"></b><span>Nom officiel</span><small id="countOfficial">0</small></label>
+        <label class="check"><input type="checkbox" value="community" checked><b class="dot community"></b><span>Reconstruction</span><small id="countCommunity">0</small></label>
+        <label class="check"><input type="checkbox" value="leak" checked><b class="dot leak"></b><span>Indice issu du leak</span><small id="countLeak">0</small></label>
+      </section>
+
+      <section class="filter-section regions">
+        <div class="section-title"><span>Régions</span></div>
+        <button data-region="all" class="region active"><span>Tout Leonida</span><small>18</small></button>
+        <button data-region="Vice City" class="region"><span>Vice City</span><small>7</small></button>
+        <button data-region="Leonida Keys" class="region"><span>Leonida Keys</span><small>3</small></button>
+        <button data-region="Port Gellhorn" class="region"><span>Port Gellhorn</span><small>2</small></button>
+        <button data-region="North Leonida" class="region"><span>Nord de Leonida</span><small>4</small></button>
+        <button data-region="Grassrivers" class="region"><span>Grassrivers</span><small>2</small></button>
+      </section>
+
+      <div class="sidebar-note">
+        <span>À LIRE AVANT D’EXPLORER</span>
+        <p>Les noms marqués « officiel » viennent de Rockstar. Leur emplacement précis, les routes et les limites restent une hypothèse communautaire.</p>
+      </div>
+    </aside>
+
+    <section class="map-view active-view" id="mapView" aria-label="Carte interactive de Leonida">
+      <div class="map-stage" id="mapStage">
+        <canvas id="mapCanvas"></canvas>
+        <div id="markers" class="markers"></div>
+        <div class="map-vignette"></div>
+        <div class="map-grid"></div>
+      </div>
+
+      <div class="map-toolbar">
+        <button id="zoomIn" aria-label="Zoomer">+</button>
+        <button id="zoomOut" aria-label="Dézoomer">−</button>
+        <button id="resetMap" aria-label="Recentrer">⌂</button>
+      </div>
+
+      <div class="coordinates"><span id="zoomLabel">ZOOM 1.6×</span><span id="coordLabel">X −2500 · Y 0</span></div>
+
+      <div class="legend-card">
+        <div><span class="pulse"></span><b>CARTE YANIS V16</b></div>
+        <p>Assemblage communautaire, pas une carte officielle.</p>
+      </div>
+
+      <article class="place-card" id="placeCard" aria-live="polite">
+        <button class="close-card" id="closeCard" aria-label="Fermer">×</button>
+        <span class="place-region" id="placeRegion">VICE CITY</span>
+        <h2 id="placeTitle">Vice City</h2>
+        <p id="placeDescription">Le cœur urbain de Leonida, officiellement confirmé par Rockstar.</p>
+        <div class="evidence-row"><span class="evidence official" id="placeEvidence">NOM OFFICIEL</span><span id="placeConfidence">Placement estimé</span></div>
+        <a id="placeSource" href="https://www.rockstargames.com/VI/only-in-leonida" target="_blank" rel="noreferrer">Consulter la source ↗</a>
+      </article>
+    </section>
+
+    <section class="content-view" id="investigationView">
+      <div class="content-wrap">
+        <span class="eyebrow">DOSSIER 01 / MÉTHODE</span>
+        <h2>Comment une map apparaît<br><em>avant le jeu.</em></h2>
+        <p class="lead">Ce projet ne republie aucune vidéo volée. Il documente la manière dont la communauté a transformé des indices publics et des coordonnées relevées dans le leak de 2022 en hypothèse cartographique testable.</p>
+
+        <div class="method-grid">
+          <article><span>01</span><h3>Coordonnées moteur</h3><p>Des positions X/Y visibles dans les séquences de développement donnent une première ossature. La communauté les reporte sur une grille où une unité RAGE est traitée comme un mètre.</p><b>Origine : leak 2022</b></article>
+          <article><span>02</span><h3>Triangulation</h3><p>Deux monuments visibles dans plusieurs plans permettent d’estimer l’angle de caméra, puis la position d’un troisième bâtiment.</p><b>Trailers + captures officielles</b></article>
+          <article><span>03</span><h3>Jumeaux floridiens</h3><p>Hôtels, ponts et quartiers sont comparés à Miami et au reste de la Floride. Les équivalents réels servent d’ancres d’échelle.</p><b>Analyse communautaire</b></article>
+          <article><span>04</span><h3>Révisions continues</h3><p>Chaque nouvelle image peut déplacer une route ou supprimer une hypothèse. Le panhandle, par exemple, a été ajouté puis retiré faute de preuves suffisantes.</p><b>Version actuelle : YANIS V16</b></article>
+        </div>
+
+        <div class="timeline">
+          <div><time>18.09.2022</time><span></span><p><b>Intrusion et fuite</b> — des séquences de développement apparaissent en ligne. Rockstar confirmera une « intrusion réseau ».</p></div>
+          <div><time>21.09.2022</time><span></span><p><b>Première grille</b> — les coordonnées RAGE relevées par les mappeurs deviennent les points d’ancrage de la version 0.007.</p></div>
+          <div><time>05.12.2023</time><span></span><p><b>Avant le trailer 1</b> — la silhouette générale existe déjà, mais de larges zones restent spéculatives.</p></div>
+          <div><time>2024–2025</time><span></span><p><b>Photogrammétrie artisanale</b> — triangulation, projection et comparaisons avec la Floride densifient Vice City.</p></div>
+          <div><time>09.2026</time><span></span><p><b>YANIS V16</b> — la carte utilisée ici devient la version par défaut du projet GTADB.</p></div>
+        </div>
+
+        <div class="truth-box"><span>PRINCIPE ÉDITORIAL</span><p>Un nom peut être officiel sans que sa position le soit. Un bâtiment visible peut être certain sans que sa fonction soit connue. La carte conserve donc trois statuts distincts : <b>nom officiel</b>, <b>reconstruction communautaire</b> et <b>indice issu du leak</b>.</p></div>
+      </div>
+    </section>
+
+    <section class="content-view" id="sourcesView">
+      <div class="content-wrap sources-wrap">
+        <span class="eyebrow">DOSSIER 02 / PROVENANCE</span>
+        <h2>Sources, crédits<br><em>& limites.</em></h2>
+        <p class="lead">Priorité aux sources officielles et aux travaux dont la méthode ou les données sont inspectables. Les liens ci-dessous permettent de remonter à chaque couche du projet.</p>
+        <div class="source-list">
+          <a href="https://www.rockstargames.com/VI/only-in-leonida" target="_blank" rel="noreferrer"><span>OFFICIEL</span><div><h3>Rockstar Games — Only in Leonida</h3><p>Six régions nommées, personnages et informations de cadre.</p></div><b>↗</b></a>
+          <a href="https://github.com/rolux/gtadb.org" target="_blank" rel="noreferrer"><span>DONNÉES</span><div><h3>GTADB — dépôt public</h3><p>Tuiles YANIS V16 et base de lieux sous CC BY 4.0.</p></div><b>↗</b></a>
+          <a href="https://www.reddit.com/r/GTA6/comments/1p8ow14/inside_gta_vi_mapping_the_community_rebuilding/" target="_blank" rel="noreferrer"><span>MÉTHODE</span><div><h3>Inside GTA VI Mapping</h3><p>Historique, rôles, coordonnées RAGE, triangulation et projection.</p></div><b>↗</b></a>
+          <a href="https://gtaforums.com/topic/985670-mapping-vice-city-map-discussion-thread-no-leak-footage-allowed/" target="_blank" rel="noreferrer"><span>ENQUÊTE</span><div><h3>GTAForums — Map Discussion</h3><p>Fil de discussion cartographique sans images du leak.</p></div><b>↗</b></a>
+          <a href="https://fullsweepmap.com/wiki/yanis-gta6-map/" target="_blank" rel="noreferrer"><span>CONTEXTE</span><div><h3>FullSweep — YANIS V15/V16</h3><p>Versions, auteurs, méthode de frame matching et limites de précision.</p></div><b>↗</b></a>
+          <a href="https://arstechnica.com/gaming/2022/09/rockstar-confirms-grand-theft-auto-vi-leak-came-from-network-intrusion/" target="_blank" rel="noreferrer"><span>PRESSE</span><div><h3>Ars Technica — confirmation du leak</h3><p>Contexte de l’intrusion réseau confirmée par Rockstar en 2022.</p></div><b>↗</b></a>
+        </div>
+        <div class="license-block">
+          <h3>Crédits cartographiques</h3>
+          <p>Fond de carte : © YANIS V16 et GTA VI Mapping Community, distribué via <a href="https://gtadb.org" target="_blank" rel="noreferrer">gtadb.org</a>, licence <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>. Données de repérage : GTADB et ses contributeurs. Adaptations : sélection éditoriale, interface, filtres et textes en français.</p>
+          <p>Site non officiel, sans affiliation avec Rockstar Games ou Take-Two Interactive. GTA, Grand Theft Auto, Vice City et Rockstar sont des marques de Take-Two Interactive Software, Inc.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

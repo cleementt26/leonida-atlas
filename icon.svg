@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#071411"/>
+  <path d="M11 9h42v46H11z" fill="none" stroke="#c7ff45" stroke-width="2" transform="rotate(-3 32 32)"/>
+  <text x="32" y="38" text-anchor="middle" font-family="monospace" font-size="17" font-weight="700" fill="#c7ff45">LA</text>
+</svg>
