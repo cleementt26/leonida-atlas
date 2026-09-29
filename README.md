@@ -2,6 +2,8 @@
 
 Atlas interactif en français consacré à la reconstruction communautaire de la carte de **Grand Theft Auto VI**.
 
+L'interface inclut le glisser-déplacer, le zoom molette ou pincé, la recherche instantanée, des accès rapides aux régions, des filtres de fiabilité et des fiches de lieux. Elle est adaptée aux écrans tactiles et aux téléphones.
+
 ## Lancer localement
 
 Le site est entièrement statique. Depuis ce dossier :

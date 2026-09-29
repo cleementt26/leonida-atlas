@@ -4,3 +4,33 @@
 @media(max-width:620px){.brand small{display:none}.brand{max-width:112px}.topbar nav{position:fixed;z-index:30;left:0;right:0;bottom:0;height:54px;background:rgba(6,16,13,.98);border-top:1px solid var(--line);padding:0 8px}.nav-link{flex:1;padding:0 8px}.nav-link.active:after{left:18px;right:18px;top:0;bottom:auto}main{height:calc(100% - 116px)}.place-card{bottom:64px}}
 @media(max-width:520px){.legend-card{max-width:200px}.legend-card p{display:none}.marker .marker-label{display:none}.place-card{bottom:65px}.content-wrap h2{font-size:34px}.lead{font-size:13px}.method-grid article{min-height:210px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Interaction & mobile usability layer */
+.map-stage{touch-action:none;user-select:none}
+.search:focus-within{border-color:rgba(199,255,69,.55);box-shadow:0 0 0 3px rgba(199,255,69,.06)}
+.search-results{display:none;border:1px solid var(--line);border-top:0;background:#0b1713;max-height:188px;overflow:auto}
+.search-results.open{display:block}
+.search-result{width:100%;border:0;border-bottom:1px solid var(--line);background:none;padding:10px 12px;text-align:left;cursor:pointer}
+.search-result:last-child{border:0}.search-result:hover,.search-result:focus{background:rgba(199,255,69,.07);outline:0}
+.search-result b{display:block;font-size:11px}.search-result small{font:9px var(--mono);color:var(--muted)}.search-empty{padding:12px;color:var(--muted);font-size:10px}
+.quick-regions{position:absolute;top:22px;left:22px;display:flex;gap:7px;max-width:calc(100% - 110px);overflow-x:auto;scrollbar-width:none}
+.quick-regions::-webkit-scrollbar{display:none}.quick-regions button{flex:0 0 auto;border:1px solid var(--line);background:rgba(6,16,13,.9);color:#a9b7b0;padding:9px 12px;font:10px var(--mono);cursor:pointer}
+.quick-regions button:hover,.quick-regions button.active{border-color:rgba(199,255,69,.55);background:rgba(199,255,69,.11);color:var(--lime)}
+.gesture-hint{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);background:rgba(6,16,13,.9);border:1px solid var(--line);padding:9px 13px;color:#b2c0b9;font:10px var(--mono);white-space:nowrap;opacity:1;transition:.35s}
+.gesture-hint.hidden{opacity:0;pointer-events:none}.gesture-hint span{color:var(--lime)}.gesture-hint i{color:var(--muted);font-style:normal}.sheet-backdrop{display:none}
+
+@media(max-width:900px){
+  .mobile-menu{width:40px;height:40px}.map-toolbar{top:64px}.quick-regions{left:12px;right:12px;top:12px;max-width:none}
+  .sheet-backdrop{display:block;position:fixed;z-index:9;inset:62px 0 0;border:0;background:rgba(0,0,0,.52);opacity:0;pointer-events:none;transition:.25s}
+  .sheet-backdrop.open{opacity:1;pointer-events:auto}.marker{width:28px;height:28px}.marker:before{inset:9px}.marker:after{inset:4px}
+}
+@media(max-width:620px){
+  .topbar nav{height:56px}.nav-link{font-size:12px}main{height:calc(100% - 118px)}
+  .sidebar{position:fixed;z-index:40;left:0;right:0;top:auto;bottom:56px;width:100%;height:min(72vh,590px);border-right:0;border-top:1px solid var(--line);border-radius:18px 18px 0 0;padding:28px 20px 24px;transform:translateY(110%);box-shadow:0 -20px 70px rgba(0,0,0,.5)}
+  .sidebar:before{content:"";position:absolute;top:9px;left:50%;width:42px;height:4px;border-radius:3px;background:#415149;transform:translateX(-50%)}.sidebar.open{transform:none}
+  .sidebar h1{font-size:31px}.sidebar .intro{display:none}.search input{font-size:16px}.check,.region{min-height:42px;font-size:14px}.section-title{font-size:12px}
+  .sheet-backdrop{z-index:35;inset:0 0 56px}.quick-regions button{font-size:12px;padding:10px 13px}.legend-card{display:none}.gesture-hint{bottom:12px;font-size:11px}
+  .place-card{bottom:66px;border-radius:16px 16px 0 0;padding:24px 22px}.place-card:before{content:"";position:absolute;top:8px;left:50%;width:38px;height:4px;border-radius:3px;background:#42534a;transform:translateX(-50%)}
+  .place-card h2{font-size:24px;margin-top:14px}.place-card p{font-size:14px}.place-card a,.evidence-row>span:last-child{font-size:11px}
+  .content-wrap{padding:34px 18px 70px}.content-wrap h2{font-size:34px}.lead{font-size:16px}.method-grid article p,.timeline p,.truth-box p{font-size:14px}
+}

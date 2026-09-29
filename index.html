@@ -35,7 +35,8 @@
       </div>
       <p class="intro">Une lecture critique de la carte assemblée image par image par la communauté GTA VI.</p>
 
-      <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Rechercher un lieu…" autocomplete="off"></label>
+      <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Rechercher un lieu…" autocomplete="off" aria-label="Rechercher un lieu"></label>
+      <div class="search-results" id="searchResults" aria-live="polite"></div>
 
       <section class="filter-section">
         <div class="section-title"><span>Niveau de preuve</span><button id="resetFilters">Tout afficher</button></div>
@@ -73,6 +74,16 @@
         <button id="zoomOut" aria-label="Dézoomer">−</button>
         <button id="resetMap" aria-label="Recentrer">⌂</button>
       </div>
+
+      <div class="quick-regions" aria-label="Accès rapide aux régions">
+        <button data-jump="vice-city" class="active">Vice City</button>
+        <button data-jump="keys">Keys</button>
+        <button data-jump="grassrivers">Grassrivers</button>
+        <button data-jump="port-gellhorn">Gellhorn</button>
+        <button data-jump="kalaga">Kalaga</button>
+      </div>
+
+      <div class="gesture-hint" id="gestureHint"><span>↔</span> Glissez pour explorer <i>·</i> pincez pour zoomer</div>
 
       <div class="coordinates"><span id="zoomLabel">ZOOM 1.6×</span><span id="coordLabel">X −2500 · Y 0</span></div>
 
@@ -137,6 +148,7 @@
       </div>
     </section>
   </main>
+  <button class="sheet-backdrop" id="sheetBackdrop" aria-label="Fermer les filtres"></button>
 
   <script src="app.js"></script>
 </body>
