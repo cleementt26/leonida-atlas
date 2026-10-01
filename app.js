@@ -46,7 +46,7 @@ function render(){
   else for(let p=z-1;p>=0;p--){const factor=2**(z-p),parent=image(p,Math.floor(x/factor),Math.floor(y/factor));if(parent.complete&&parent.naturalWidth){ctx.drawImage(parent,(x%factor)*256/factor,(y%factor)*256/factor,256/factor,256/factor,ox+x*size,oy+y*size,size+.5,size+.5);break}}
  }
  const shown=new Set(filtered().map(m=>m.id));
- markersData.forEach(m=>{const b=pins.get(m.id),[x,y]=screen(m.x,m.y);b.hidden=!shown.has(m.id)||x<-40||y<-40||x>width+40||y>height+40;b.style.left=x+'px';b.style.top=y+'px';b.classList.toggle('selected',state.selected===m.id);b.classList.toggle('labeled',m.evidence==='official'&&state.z<1.7);b.setAttribute('aria-pressed',String(state.selected===m.id))});
+ markersData.forEach(m=>{const b=pins.get(m.id),[x,y]=screen(m.x,m.y);b.hidden=(state.z<1.3&&m.evidence!=='official'&&state.evidence.has('official')&&!state.query&&!state.favorites&&state.region==='all'&&state.selected!==m.id)||!shown.has(m.id)||x<-40||y<-40||x>width+40||y>height+40;b.style.left=x+'px';b.style.top=y+'px';b.classList.toggle('selected',state.selected===m.id);b.classList.toggle('labeled',m.evidence==='official'&&state.z<1.7);b.setAttribute('aria-pressed',String(state.selected===m.id))});
  $('zoomLabel').textContent='NIVEAU '+state.z.toFixed(1);$('coordLabel').textContent='POSITION ESTIMÉE';
 }
 markersData.forEach(m=>{const b=document.createElement('button');b.className='marker '+m.evidence;b.setAttribute('aria-label',m.name);const label=document.createElement('span');label.className='marker-label';label.textContent=m.name;b.append(label);b.addEventListener('pointerdown',e=>e.stopPropagation());b.onclick=e=>{e.stopPropagation();select(m,true)};$('markers').append(b);pins.set(m.id,b)});
